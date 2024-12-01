@@ -4,11 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "postinstall": "npx prisma generate",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "prod": "NODE_ENV=production node ./dist/server.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "start": "node ./dist/server.js",
+    "dev": "tsnd --respawn src/server.ts",
+    "db:migrate": "npx prisma migrate dev",
+    "db:generate": "npx prisma generate",
+    "db:format": "npx prisma format",
+    "db:push": "npx prisma push",
+    "db:pull": "npx prisma pull",
+    "db:debug": "npx prisma debug",
+    "db:studio": "npx prisma studio"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
