@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,6 +14,7 @@ model Member {
   phone          String
   membershipDate DateTime
   BorrowRecord   BorrowRecord[]
+
   @@map("member")
 }
 
@@ -31,18 +26,18 @@ model Book {
   totalCopies     Int
   availableCopies Int
   BorrowRecord    BorrowRecord[]
+
   @@map("book")
 }
 
 model BorrowRecord {
   borrowId   String    @id @default(uuid())
   borrowDate DateTime
-  returnDate DateTime? // Nullable field
+  returnDate DateTime?
   bookId     String
   memberId   String
+  Book       Book      @relation(fields: [bookId], references: [bookId])
+  Member     Member    @relation(fields: [memberId], references: [memberId])
 
-  // Relations
-  Book   Book   @relation(fields: [bookId], references: [bookId])
-  Member Member @relation(fields: [memberId], references: [memberId])
   @@map("borrow_record")
 }
